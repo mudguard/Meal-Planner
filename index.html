@@ -6,10 +6,10 @@
   <title>Kitchn Edwards</title>
 
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#5f6368">
+  <meta name="theme-color" content="#1F2937">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Kitchn">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1027/1027128.png">
 
@@ -69,6 +69,17 @@
     100% { transform: scale(0.97); opacity: 0.8; } 
   }
 
+  /* This ensures the top of the webpage doesn't try to 
+   overlap the navy status bar area on notched phones */
+html {
+  background-color: #1F2937; /* Matches the status bar */
+}
+
+body {
+  background-color: #5f6368; /* Matches your loading screen */
+  /* Keeps content below the status bar on some browsers */
+  padding-top: env(safe-area-inset-top); 
+}
   /* The app iframe hidden behind the loader */
   iframe { border: none; width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0;}
 </style>
