@@ -1,36 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1F2937">
+  <title>Meal Planner</title>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
-  </script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a1c23">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Meals">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1027/1027128.png">
 
   <style>
-    /* Ensure the wrapper takes up the full screen */
+    /* Reset and Full Screen Setup */
     body, html { 
-      margin: 0; 
-      padding: 0; 
-      height: 100%; 
-      width: 100%; 
-      overflow: hidden; /* Prevents the 'outer' page from scrolling */
+      margin: 0; padding: 0; 
+      height: 100%; width: 100%; 
+      overflow: hidden; 
+      background-color: #1a1c23; /* Dark background to prevent white flash */
     }
-    
+
+    /* The Loading Screen Layer */
+    #loading-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #1a1c23; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease;
+    }
+
+    #loading-screen img {
+      width: 90px;
+      height: 90px;
+    }
+
+    #loading-screen p {
+      color: #00b894; /* Your theme green */
+      margin-top: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* The Jiggle Animation */
+    .jiggle {
+      animation: jiggle 0.4s infinite ease-in-out;
+    }
+
+    @keyframes jiggle {
+      0% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+      100% { transform: rotate(-5deg); }
+    }
+
+    /* The Iframe (Your Google Script) */
     iframe {
       border: none;
       width: 100%;
       height: 100%;
       display: block;
     }
+
+    #loading-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #1a1c23; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+/* Specific styling for the Kitchn text */
+.brand-text {
+  color: #8a8d91; /* A sophisticated dark grey */
+  margin-top: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300; /* Light weight looks more premium */
+  letter-spacing: 2px; /* Spaced out letters for a 'logo' feel */
+  text-transform: uppercase;
+}
+
+#loading-screen img {
+  width: 80px;
+  height: 80px;
+}
+
+/* The Jiggle Animation */
+.jiggle {
+  animation: jiggle 0.4s infinite ease-in-out;
+}
+
+@keyframes jiggle {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); }
+}
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycby4I8XGdE1ZMeQrJO43wG2_qm40lOquTNX6VSOhHaVS-I99l-1pQZU2IS6-fMfd1hTv/exec"></iframe>
+
+  <div id="loading-screen">
+    <img src="https://cdn-icons-png.flaticon.com/512/1027/1027128.png" class="jiggle">
+    <p class="brand-text">Kitchn</p>
+  </div>
+
+  <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycby4I8XGdE1ZMeQrJO43wG2_qm40lOquTNX6VSOhHaVS-I99l-1pQZU2IS6-fMfd1hTv/exec"></iframe>
+
+  <script>
+    // 4. Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+
+    // 5. Hide Loader after the script has had time to load (3 seconds)
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const loader = document.getElementById('loading-screen');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 600);
+      }, 3000); // 3 seconds - Adjust if needed
+    });
+  </script>
+
 </body>
 </html>
