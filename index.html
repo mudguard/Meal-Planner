@@ -42,7 +42,7 @@
     }
 
     #loading-screen p {
-      color: #00b894; /* Your theme green */
+      color: #10B981; /* Your theme green */
       margin-top: 15px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       font-size: 1.1rem;
@@ -97,24 +97,22 @@
   height: 80px;
 }
 
-/* The Jiggle Animation */
-.jiggle {
-  animation: jiggle 0.4s infinite ease-in-out;
+.pulse {
+  animation: pulse 2s infinite ease-in-out;
 }
 
-@keyframes jiggle {
-  0% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-  100% { transform: rotate(-5deg); }
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
 }
   </style>
 </head>
 <body>
 
   <div id="loading-screen">
-    <img src="https://cdn-icons-png.flaticon.com/512/1027/1027128.png" class="jiggle">
-    <p class="brand-text">Kitchn</p><br>
-    <p class="brand-text">Edwards</p>
+    <img src="https://cdn-icons-png.flaticon.com/512/1027/1027128.png" class="pulse">
+    <p class="brand-text">Kitchn Edwards</p>
   </div>
 
   <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycby4I8XGdE1ZMeQrJO43wG2_qm40lOquTNX6VSOhHaVS-I99l-1pQZU2IS6-fMfd1hTv/exec"></iframe>
